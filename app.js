@@ -1,3 +1,54 @@
+const expressModule = require('express');
+const app = expressModule();
+
+app.use(expressModule.json());
+
+app.get('/', function(req, res) {
+    return res.send("Hello world!");
+});
+let courses = [
+    {id: 1, name:'course1'},
+    {id: 2, name:'course2'}
+];
+app.get('/api/courses/:id', function(req, res){
+    return res.send(req.params.id); //send back param
+})
+app.get('/api/courses', function(req, res) {
+    return res.send(req.query); //Send back query string
+});
+
+app.post('api/courses', function(req, res){
+    const course = {id: courses.length + 1,
+    name: req.body.name
+    };
+    courses.push(course);
+    return res.send(course);
+});
+
+
+app.listen(3000, function() {
+    console.log('Listening on port 3000...');
+});
+
+/* Using Express to handle routes
+
+const expressModule = require('express');
+const app = expressModule();
+
+app.get('/', function(req, res) {
+    res.send("Hello world!");
+});
+
+app.get('/api/courses', function(req, res){
+    res.send([1,2,3]);
+})
+
+app.listen(3000, function() {
+    console.log('Listening on port 3000...');
+});
+
+*/
+/* slightly more advanced web server
 const httpModule = require('http');
 
 const webServer = httpModule.createServer( function(req, res) {
@@ -14,6 +65,8 @@ const webServer = httpModule.createServer( function(req, res) {
 webServer.listen(3000);
 
 console.log('Listening on port 3000...');
+
+*/
 
 
 
